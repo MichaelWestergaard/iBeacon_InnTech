@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -72,33 +73,67 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned(
             bottom: 90,
             left: 4,
-            child: InkWell(
-              onTap: () => print("new screen"),
-              child: Card(
-                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(1))),
-                elevation: 6,
-                child: Container(
-                  width: MediaQuery.of(context).size.width/2-10,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
-                    child: Column(
-                      children: <Widget>[
-                        Icon(
-                          Icons.directions,
-                          size: 50,
-                          color: Color(0xff0ab277),
+            child: Row(
+              children: <Widget>[
+                InkWell(
+                  onTap: () => print("new screen"),
+                  child: Card(
+                    shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(1))),
+                    elevation: 6,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width/2-12,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.clipboardList,
+                              size: 42,
+                              color: Color(0xff0ab277),
+                            ),
+                            SizedBox(height: 6,),
+                            Text(
+                              "Planlægning",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "Planlægning",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+                InkWell(
+                  onTap: () => print("new screen"),
+                  child: Card(
+                    shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(1))),
+                    elevation: 6,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width/2-12,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              FontAwesomeIcons.directions,
+                              size: 42,
+                              color: Color(0xff0ab277),
+                            ),
+                            SizedBox(height: 6,),
+                            Text(
+                              "Rutevejledning",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w900
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
