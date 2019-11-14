@@ -66,10 +66,8 @@ class _MyAppState extends State<HomeScreen> with TickerProviderStateMixin {
           itemCount: buttons.length,
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 4)),
-
           itemBuilder: (context, index) {
             Button button = buttons[index];
-
             return InkWell(
               onTap: () => print("new screen"),
               child: Card(
