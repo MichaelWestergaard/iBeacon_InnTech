@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Button {
 
-  Image _icon;
+  String _icon;
   String _title;
   String _route;
 
@@ -20,9 +20,9 @@ class Button {
     _title = value;
   }
 
-  Image get icon => _icon;
+  String get icon => _icon;
 
-  set icon(Image value) {
+  set icon(String value) {
     _icon = value;
   }
 

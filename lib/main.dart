@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inntech_app/Carousel.dart';
 import 'package:inntech_app/models/button.dart';
 
 import 'PageTransition.dart';
@@ -17,6 +19,9 @@ class MyApp extends StatelessWidget {
             return PageTransition(page: HomeScreen());
             break;
           case '/plan':
+            return PageTransition(page: HomeScreen());
+            break;
+          case '/route':
             return PageTransition(page: HomeScreen());
             break;
           default:
@@ -40,62 +45,82 @@ class _MyAppState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: getButtons(context),
+      backgroundColor: Color(0xfff3f3f3),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: Card(
+          margin: EdgeInsets.all(10),
+          shape: CircleBorder(),
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(2),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                image: AssetImage("assets/images/img_avatar.png"),
+              ),
+            ),
+          )
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Carousel(),
+          getButtons(context),
+        ],
+      )
     );
   }
 
   Widget getButtons(BuildContext context){
     List<Button> buttons = List<Button>();
 
-    buttons.add(Button(Image.asset("assets/images/icons/booking.jpg"), "Booking", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/programmer.jpg"), "Træningsprogrammer", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/challenges.jpg"), "Challenges", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/udvikling.jpg"), "Min udvikling", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/statistik.jpg"), "Statistik", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/buddies.jpg"), "Buddies", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/centre.jpg"), "Centre", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/trofæer.jpg"), "Trofæer", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/planlægning.jpg"), "Planlægning", "/none"));
-    buttons.add(Button(Image.asset("assets/images/icons/rutevejledning.jpg"), "Rutevejledning", "/none"));
+    buttons.add(Button("assets/images/booking.png", "Booking", "/none"));
+    buttons.add(Button("assets/images/training.png", "Træningsprogrammer", "/none"));
+    buttons.add(Button("assets/images/arm.png", "Challenges", "/none"));
+    buttons.add(Button("assets/images/weight.png", "Min udvikling", "/none"));
+    buttons.add(Button("assets/images/stats.png", "Statistik", "/none"));
+    buttons.add(Button("assets/images/buddies.png", "Buddies", "/none"));
+    buttons.add(Button("assets/images/centres.png", "Centre", "/none"));
+    buttons.add(Button("assets/images/trophy.png", "Trofæer", "/none"));
+    buttons.add(Button("assets/images/shopping-list.png", "Planlægning", "/plan"));
+    buttons.add(Button("assets/images/map.png", "Rutevejledning", "/route"));
 
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: GridView.builder(
-          itemCount: buttons.length,
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 4)),
-          itemBuilder: (context, index) {
-            Button button = buttons[index];
-            return InkWell(
-              onTap: () => print("new screen"),
-              child: Card(
-                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(1))),
-                elevation: 6,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.clipboardList,
-                      size: 42,
-                      color: Color(0xff0ab277),
+    return Container(
+      child: GridView.builder(
+        itemCount: buttons.length,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 4)),
+        padding: EdgeInsets.all(8),
+        itemBuilder: (context, index) {
+          Button button = buttons[index];
+          return Card(
+            shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
+            elevation: 4,
+            child: InkWell(
+              onTap: () {},
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image(
+                    image: AssetImage(button.icon),
+                    width: 40,
+                  ),
+                  SizedBox(height: 10,),
+                  Text(
+                    button.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
                     ),
-                    SizedBox(height: 10),
-                    Text(
-                      button.title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
