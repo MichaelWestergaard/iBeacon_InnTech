@@ -6,22 +6,15 @@ class Plan extends StatefulWidget {
   @override
   _PlanState createState() => _PlanState();
 
-  List<Place> plannedRoute = List<Place>();
+  List<Place> plannedRoute = [Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),];
+
 }
 
 class _PlanState extends State<Plan> {
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    widget.plannedRoute = List<Place>();
 
-    widget.plannedRoute.add(Place("Test"));
-    widget.plannedRoute.add(Place("Test"));
-    widget.plannedRoute.add(Place("Test"));
-    widget.plannedRoute.add(Place("Test"));
 
     return Scaffold(
         backgroundColor: Color(0xfff3f3f3),
@@ -59,15 +52,20 @@ class _PlanState extends State<Plan> {
                 padding: EdgeInsets.all(4),
                 itemCount: widget.plannedRoute.length,
                 itemBuilder: (context, index) =>
-                    buildRoute(context, widget.plannedRoute[index]),
+                    buildRoute(context, widget.plannedRoute[index], index),
               ),
+            ),
+            RaisedButton(
+              onPressed: () {},
+              color: Colors.blue,
+              child: Text("Få rutevejledning", style: TextStyle(color: Colors.white),),
             )
           ],
         )
     );
   }
 
-  Widget buildRoute(BuildContext context, Place place){
+  Widget buildRoute(BuildContext context, Place place, int index){
     return Card(
       child: ListTile(
         title: Text(place.name),
@@ -76,6 +74,9 @@ class _PlanState extends State<Plan> {
           child: InkWell(
             onTap: () {
               print("clicked");
+              setState(() {
+                widget.plannedRoute.removeAt(index);
+              });
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
