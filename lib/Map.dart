@@ -13,6 +13,7 @@ class RouteScreen extends StatefulWidget {
 
 class _RouteScreenState extends State<RouteScreen> {
   StreamSubscription<RangingResult> _streamRanging;
+  StreamSubscription<MonitoringResult> _streamMonitoring;
   final _regionBeacons = <Region, List<Beacon>>{};
   final _beacons = <Beacon>[];
 
@@ -42,16 +43,12 @@ class _RouteScreenState extends State<RouteScreen> {
       regions.add(Region(identifier: 'com.beacon'));
     }
 
-    flutterBeacon.monitoring(regions).listen((MonitoringResult result) {
+    _streamMonitoring = flutterBeacon.monitoring(regions).listen((MonitoringResult result) {
       // result contains a region, event type and event state
+      print("dissemand" + result.toString());
     });
 
-    _streamRanging = flutterBeacon.ranging(regions).listen((result) {
-      result.beacons.forEach((b) {
-        print(b.major);
-        _beacons.sort(_compareParameters);
-      });
-    });
+
   }
 
   int _compareParameters(Beacon a, Beacon b) {
