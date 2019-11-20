@@ -6,7 +6,7 @@ class Plan extends StatefulWidget {
   @override
   _PlanState createState() => _PlanState();
 
-  List<Place> plannedRoute = [Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),Place("1"),];
+  List<Place> plannedRoute = List<Place>();
 
 }
 
@@ -20,19 +20,23 @@ class _PlanState extends State<Plan> {
         backgroundColor: Color(0xfff3f3f3),
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: Card(
-              margin: EdgeInsets.all(10),
-              shape: CircleBorder(),
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(2),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image(
-                    image: AssetImage("assets/images/img_avatar.png"),
+          leading: InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Card(
+                margin: EdgeInsets.all(10),
+                shape: CircleBorder(),
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Icon(
+                      FontAwesomeIcons.arrowLeft,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              )
+                )
+            ),
           ),
           centerTitle: true,
           title: Text(
@@ -92,6 +96,24 @@ class _PlanState extends State<Plan> {
     );
   }
 
+  Widget buildItem(BuildContext context, Place place){
+    return InkWell(
+      onTap: () {
+        setState(() {
+          widget.plannedRoute.add(place);
+
+        });
+      },
+      child: Card(
+        elevation: 4,
+        child: ListTile(
+          title: Text(place.name),
+
+        ),
+      ),
+    );
+  }
+
   Widget getButtons(BuildContext context){
     List<Button> buttons = List<Button>();
 
@@ -99,6 +121,29 @@ class _PlanState extends State<Plan> {
     buttons.add(Button("assets/images/training.png", "Styrketræning", "/none"));
     buttons.add(Button("assets/images/buddies.png", "Holdtræning", "/none"));
     buttons.add(Button("assets/images/wc.png", "Faciliteter", "/none"));
+
+    List<Place> cardioButtons = List<Place>();
+
+    cardioButtons.add(Place("Løbebånd"));
+    cardioButtons.add(Place("Motionscykel"));
+    cardioButtons.add(Place("Crosstrainer"));
+    cardioButtons.add(Place("Romaskine"));
+
+    List<Place> strengthButtons = List<Place>();
+
+    strengthButtons.add(Place("Bænkpres"));
+    strengthButtons.add(Place("Squat"));
+    strengthButtons.add(Place("Leg extensions"));
+    strengthButtons.add(Place("Preacher Curl (maskine)"));
+
+    List<Place> teamButtons = List<Place>();
+
+    teamButtons.add(Place("Spinning"));
+
+    List<Place> facilityButtons = List<Place>();
+
+    facilityButtons.add(Place("Omklædning (mand)"));
+    facilityButtons.add(Place("Omklædning (kvinde)"));
 
     return Container(
       child: GridView.builder(
@@ -113,7 +158,45 @@ class _PlanState extends State<Plan> {
             shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
             elevation: 4,
             child: InkWell(
-              onTap: () => Navigator.pushNamed(context, button.route),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+
+                    List<Place> dialogList;
+
+                    switch(button.title) {
+                      case "Cardio": dialogList = cardioButtons; break;
+                      case "Styrketræning": dialogList = strengthButtons; break;
+                      case "Holdtræning": dialogList = teamButtons; break;
+                      case "Faciliteter": dialogList = facilityButtons; break;
+                      default: dialogList = new List<Place>(); break;
+                    }
+
+                    return AlertDialog(
+                      title: Text(button.title),
+                        actions: <Widget>[
+                        FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Luk')),
+                      ],
+                      content: Container(
+                        width: double.maxFinite,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          padding: EdgeInsets.all(4),
+                          itemCount: dialogList.length,
+                          itemBuilder: (context, index) =>
+                              buildItem(context, dialogList[index]),
+                        ),
+                      ),
+                    );
+                  }
+                );
+              },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
