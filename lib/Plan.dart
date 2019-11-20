@@ -59,11 +59,12 @@ class _PlanState extends State<Plan> {
                     buildRoute(context, widget.plannedRoute[index], index),
               ),
             ),
-            RaisedButton(
+            widget.plannedRoute.length > 0 ? RaisedButton(
               onPressed: () {},
               color: Colors.blue,
               child: Text("Få rutevejledning", style: TextStyle(color: Colors.white),),
             )
+                : Container()
           ],
         )
     );
