@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inntech_app/Carousel.dart';
+import 'package:inntech_app/Plan.dart';
 import 'package:inntech_app/models/button.dart';
 
 import 'PageTransition.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
             return PageTransition(page: HomeScreen());
             break;
           case '/plan':
-            return PageTransition(page: HomeScreen());
+            return PageTransition(page: Plan());
             break;
           case '/route':
             return PageTransition(page: HomeScreen());
@@ -99,7 +100,7 @@ class _MyAppState extends State<HomeScreen> with TickerProviderStateMixin {
             shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2))),
             elevation: 4,
             child: InkWell(
-              onTap: () {},
+              onTap: () => Navigator.pushNamed(context, button.route),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

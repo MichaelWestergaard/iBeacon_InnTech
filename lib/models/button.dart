@@ -8,6 +8,9 @@ class Button {
 
   Button(this._icon, this._title, this._route);
 
+
+  Button.name(this._title);
+
   String get route => _route;
 
   set route(String value) {
