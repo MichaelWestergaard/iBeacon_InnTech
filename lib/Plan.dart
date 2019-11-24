@@ -98,15 +98,15 @@ class _PlanState extends State<Plan> {
   }
 
   Widget buildItem(BuildContext context, Place place){
-    return InkWell(
-      onTap: () {
-        setState(() {
-          widget.plannedRoute.add(place);
+    return Card(
+      elevation: 4,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            widget.plannedRoute.add(place);
 
-        });
-      },
-      child: Card(
-        elevation: 4,
+          });
+        },
         child: ListTile(
           title: Text(place.name),
 
