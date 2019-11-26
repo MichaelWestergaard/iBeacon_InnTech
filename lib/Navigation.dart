@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Navigation extends StatefulWidget {
   @override
@@ -23,51 +24,89 @@ class _Navigation extends State<Navigation> {
       }
     }
 
-    return Column(
-      children: <Widget>[
-        Container(
-          child: Stack(
-            children: <Widget>[
-              Image(
-                image: AssetImage("assets/images/gym.png"),
-              ),
-              (widget.order != null)
-                  ? Image(
-                      image: AssetImage(
-                          "assets/images/" + picstack[widget.x] + ".png"),
-                    )
-                  : Container(),
-            ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: Card(
+              margin: EdgeInsets.all(10),
+              shape: CircleBorder(),
+              elevation: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(6),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Icon(
+                    FontAwesomeIcons.arrowLeft,
+                    color: Colors.black,
+                  ),
+                ),
+              )
           ),
         ),
-        Container(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                color: Colors.transparent,
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                  child: Stack(
-                    children: <Widget>[
-                      Text('Næste step'),
-                    ],
+        centerTitle: true,
+        title: Text(
+          "Rutevejledning",
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: 16
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Image(
+                    image: AssetImage("assets/images/gym.png"),
                   ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.lightBlue)),
-                  color: Colors.lightBlue,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    setState(() {
-                      if ((widget.x + 1) < picstack.length) widget.x++;
-                    });
-                  },
+                  (widget.order != null)
+                      ? Image(
+                    image: AssetImage(
+                        "assets/images/" + picstack[widget.x] + ".png"),
+                  )
+                      : Container(),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 20, 40, 20),
+              child: Container(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.transparent,
+                      width: MediaQuery.of(context).size.width,
+                      child: FlatButton(
+                        child: Stack(
+                          children: <Widget>[
+                            Text('Næste rute'),
+                          ],
+                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.lightBlue)),
+                        color: Colors.lightBlue,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            if ((widget.x + 1) < picstack.length) widget.x++;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        )
-      ],
+            )
+          ],
+        ),
+      ),
     );
   }
 
