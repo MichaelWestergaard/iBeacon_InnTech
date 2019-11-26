@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inntech_app/Navigation.dart';
 import 'package:inntech_app/models/button.dart';
+
+import 'PageTransition.dart';
 
 class Plan extends StatefulWidget {
   @override
@@ -8,14 +11,14 @@ class Plan extends StatefulWidget {
 
   List<Place> plannedRoute = List<Place>();
 
+  List<String> navigation = List<String>();
+
 }
 
 class _PlanState extends State<Plan> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         backgroundColor: Color(0xfff3f3f3),
         appBar: AppBar(
@@ -60,7 +63,18 @@ class _PlanState extends State<Plan> {
               ),
             ),
             widget.plannedRoute.length > 0 ? RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.navigation.insert(0, "ind");
+                widget.navigation.add("ind");
+
+                print(widget.navigation);
+
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Navigation(widget.navigation))
+                );
+              },
               color: Colors.blue,
               child: Text("Få rutevejledning", style: TextStyle(color: Colors.white),),
             )
@@ -104,6 +118,7 @@ class _PlanState extends State<Plan> {
         onTap: () {
           setState(() {
             widget.plannedRoute.add(place);
+            widget.navigation.add(place.navigation);
 
           });
         },
@@ -125,26 +140,26 @@ class _PlanState extends State<Plan> {
 
     List<Place> cardioButtons = List<Place>();
 
-    cardioButtons.add(Place("Løbebånd"));
-    cardioButtons.add(Place("Motionscykel"));
-    cardioButtons.add(Place("Crosstrainer"));
-    cardioButtons.add(Place("Romaskine"));
+    cardioButtons.add(Place("Løbebånd", "løb"));
+    cardioButtons.add(Place("Motionscykel", "under løb"));
+    cardioButtons.add(Place("Crosstrainer", "paddle"));
+    cardioButtons.add(Place("Romaskine", "træk"));
 
     List<Place> strengthButtons = List<Place>();
 
-    strengthButtons.add(Place("Bænkpres"));
-    strengthButtons.add(Place("Squat"));
-    strengthButtons.add(Place("Leg extensions"));
-    strengthButtons.add(Place("Preacher Curl (maskine)"));
+    strengthButtons.add(Place("Bænkpres", "bænk"));
+    strengthButtons.add(Place("Squat", "stor"));
+    strengthButtons.add(Place("Leg extensions", "ben"));
+    strengthButtons.add(Place("Preacher Curl (maskine)", "bryst"));
 
     List<Place> teamButtons = List<Place>();
 
-    teamButtons.add(Place("Spinning"));
+    teamButtons.add(Place("Spinning", "hold"));
 
     List<Place> facilityButtons = List<Place>();
 
-    facilityButtons.add(Place("Omklædning (mand)"));
-    facilityButtons.add(Place("Omklædning (kvinde)"));
+    facilityButtons.add(Place("Omklædning (mand)", "fælles"));
+    facilityButtons.add(Place("Omklædning (kvinde)", "fælles"));
 
     return Container(
       child: GridView.builder(
@@ -230,8 +245,10 @@ class _PlanState extends State<Plan> {
 
 class Place {
   String name;
+  String navigation;
 
-  Place(this.name);
+  Place(this.name, this.navigation);
+
 
 
 }
