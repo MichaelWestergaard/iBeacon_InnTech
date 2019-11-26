@@ -5,6 +5,7 @@ import 'package:inntech_app/Carousel.dart';
 import 'package:inntech_app/Plan.dart';
 import 'package:inntech_app/models/button.dart';
 
+import 'Navigation.dart';
 import 'PageTransition.dart';
 
 void main() => runApp(MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
             return PageTransition(page: Plan());
             break;
           case '/route':
-            return PageTransition(page: HomeScreen());
+            return PageTransition(page: Navigation(["ind", "bryst", "paddle", "fælles", "hold","træk","under løb","løb","bænk","stor","træk","stor","fælles","hold", "ben", "ind"]));
             break;
           default:
             return PageTransition(page: HomeScreen());
